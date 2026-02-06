@@ -5,4 +5,4 @@ app = FastAPI(title=settings.PROJECT_NAME)
 app.include_router(users.router)
 @app.get("/")
 def read_root():
-    return {"status": "Online", "project": settings.PROJECT_NAME, "ip": "34.11.132.26"}
+    return {"status": "Deploy Automático funcionando", "project": settings.PROJECT_NAME, "ip": "34.11.132.26"}
