@@ -11,7 +11,11 @@ app = FastAPI()
 
 BASE_APPS_DIR = "/home/felicruel/apps"
 
+<<<<<<< HEAD
 @app.post("/update")
+=======
+@app.post("/update/")
+>>>>>>> 1c86c34 (Ajuste de rota no webhook para evitar 404)
 async def github_webhook(request: Request):
     payload = await request.json()
     
@@ -44,4 +48,8 @@ async def github_webhook(request: Request):
 
 @app.get("/")
 def health():
+
     return {"status": "Webhook Online", "ip": "34.11.132.26"}
+=======
+    return {"status": "Webhook Online", "ip": "34.11.132.26"}
+
