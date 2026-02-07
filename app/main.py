@@ -11,17 +11,13 @@ app = FastAPI()
 
 BASE_APPS_DIR = "/home/felicruel/apps"
 
-<<<<<<< HEAD
 @app.post("/update")
-=======
-@app.post("/update/")
->>>>>>> 1c86c34 (Ajuste de rota no webhook para evitar 404)
 async def github_webhook(request: Request):
     payload = await request.json()
-    
+
     # Identifica o nome do repositório (ex: zendesk_manager)
     repo_name = payload.get("repository", {}).get("name")
-    
+
     if not repo_name:
         logger.error("Payload sem nome de repositório")
         raise HTTPException(status_code=400, detail="Payload inválido")
@@ -31,11 +27,10 @@ async def github_webhook(request: Request):
     # Verifica se temos esse projeto instalado aqui
     if os.path.exists(project_path):
         logger.info(f"🚀 Iniciando deploy automático: {repo_name}")
-        
+
         # Comando para atualizar: Puxa código -> Reinicia serviço
-        # Nota: O sudo aqui exige que o usuário tenha permissão NOPASSWD no sudoers
         command = f"cd {project_path} && git pull origin main && sudo systemctl restart {repo_name}"
-        
+
         try:
             # Executa em background para não travar o GitHub
             subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -43,13 +38,9 @@ async def github_webhook(request: Request):
         except Exception as e:
             logger.error(f"Erro ao executar deploy: {str(e)}")
             return {"status": "error", "detail": str(e)}
-    
+
     return {"status": "ignored", "message": f"Projeto {repo_name} não monitorado neste servidor."}
 
 @app.get("/")
 def health():
-
     return {"status": "Webhook Online", "ip": "34.11.132.26"}
-=======
-    return {"status": "Webhook Online", "ip": "34.11.132.26"}
-
